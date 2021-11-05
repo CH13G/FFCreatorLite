@@ -46,7 +46,6 @@ const transitionDemoTask = () => {
   creator.on('progress', e => {
     // console.log(colors.yellow(`FFCreator progress: ${(e.percent * 100) >> 0}%`));
   });
-
   creator.on('complete', e => {
     console.log(
       colors.magenta(`FFCreator completed: \n USEAGE: ${e.useage} \n PATH: ${e.output} `),

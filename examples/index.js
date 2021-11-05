@@ -13,6 +13,10 @@ const clearAllFiles = () => {
 
 const choices = [
   {
+    name: 'Test alpha video',
+    value: 'test',
+  },
+  {
     name: 'Picture animation video',
     value: 'image',
   },

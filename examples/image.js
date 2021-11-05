@@ -8,6 +8,7 @@ const createImageAnimation = () => {
   const img2 = path.join(__dirname, './assets/imgs/02.png');
   const img3 = path.join(__dirname, './assets/imgs/03.png');
   const bg1 = path.join(__dirname, './assets/imgs/wallp/06.jpeg');
+  const bgOss = path.join(__dirname, './assets/imgs/093b63e9c2eb4ec3af1faafa3effa6d9-00001.jpg');
   const bg2 = path.join(__dirname, './assets/imgs/wallp/01.jpeg');
   const logo = path.join(__dirname, './assets/imgs/logo/logo2.png');
   const font = path.join(__dirname, './assets/font/ysst.ttf');
@@ -22,7 +23,11 @@ const createImageAnimation = () => {
     width: 600,
     height: 400,
     log: true,
-    audio,
+    threads: 1,
+    debug: true,
+    cacheFormat: 'webm',
+    ext: 'webm',
+    // audio,
   });
 
   // create FFScene
@@ -32,7 +37,9 @@ const createImageAnimation = () => {
   scene2.setBgColor('#b33771');
 
   // scene1
-  const fbg = new FFImage({ path: bg1 });
+  // const fbg = new FFImage({ path: 'https://ice-video-assets.oss-cn-shanghai.aliyuncs.com/dist/ice-generated/00a1496f65964f9189a62f5b805012e1/snapshots/normal/093b63e9c2eb4ec3af1faafa3effa6d9-00001.jpg' });
+  const fbg = new FFImage({ path: bgOss });
+
   scene1.addChild(fbg);
 
   const fimg1 = new FFImage({ path: img1, x: 300, y: 60 });
@@ -50,14 +57,16 @@ const createImageAnimation = () => {
   const text1 = new FFText({ text: '这是第一屏', font, x: 220, y: 30, fontSize: 36 });
   text1.setColor('#ffffff');
   text1.setBackgroundColor('#000000');
-  text1.addEffect('fadeIn', 1, 1);
+  // text1.addEffect('fadeIn', 1, 1);
   scene1.addChild(text1);
 
   scene1.setDuration(8);
+  scene1.setTransition('radial', 2)
   creator.addChild(scene1);
 
   // scene2
   const fbg2 = new FFImage({ path: bg2 });
+  fbg2.setDuration
   fbg2.addEffect('zoomIn', 0.5, 0);
   scene2.addChild(fbg2);
   // logo
@@ -83,7 +92,8 @@ const createImageAnimation = () => {
   });
 
   creator.on('error', e => {
-    console.log(`FFCreatorLite error:: \n ${JSON.stringify(e)}`);
+    console.log(`FFCreatorLite error:: \n `, e)
+    // console.log(`FFCreatorLite error:: \n ${JSON.stringify(e)}`);
   });
 
   creator.on('progress', e => {
@@ -101,4 +111,5 @@ const createImageAnimation = () => {
   return creator;
 };
 
+// module.exports = () => startAndListen(createImageAnimation);
 module.exports = () => startAndListen(() => FFCreatorCenter.addTask(createImageAnimation));
